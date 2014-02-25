@@ -306,7 +306,7 @@ class Net_Gearman_Connection
             }
 
             throw new Net_Gearman_Exception(
-                $return['err_text'], $return['err_code']
+                $return['err_text'] . " code: " . $return['err_code']
             );
         }
 

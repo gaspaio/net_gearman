@@ -113,7 +113,7 @@ class Net_Gearman_Client
     }
 
     /**
-     * Private function to handle the status communication
+     * function to handle the status communication
      *
      * @param  string $handle The handle returned when the task was created
      * @param  string $server The server name(:port) this task was assigned to.
@@ -121,7 +121,7 @@ class Net_Gearman_Client
      * @return mixed          An associative array containing information about
      *                        the provided task handle. Returns false if the request failed.
      */
-    private function getStatus($handle, $server = null)
+    public function getStatus($handle, $server = null)
     {
 
         $params = array(
@@ -135,9 +135,10 @@ class Net_Gearman_Client
         }
 
         foreach($server_list as $s) {
-            Net_Gearman_Connection::send($s, 'get_status', $params);
+            $conn = $this->getConnection();
+            Net_Gearman_Connection::send($conn, 'get_status', $params);
 
-            $read = array($s);
+            $read = array($conn);
             $write = null;
             $except = null;
 
